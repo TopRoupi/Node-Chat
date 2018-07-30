@@ -1,0 +1,55 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+body {
+  background-color: black;
+}
+
+.background-image {
+    background-repeat:no-repeat;
+    position: fixed;
+    left: 0;
+    right: 0;
+		top: 0px;
+    z-index: -1;
+    display: block;
+    background-image: url('headerimg2.jpg');
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    -webkit-filter: blur(5px) brightness(50%);
+    filter:  blur(5px) brightness(50%);
+    -moz-filter:  blur(5px) brightness(50%);
+    -o-filter:  blur(5px) brightness(50%);
+    -ms-filter:  blur(5px) brightness(50%);
+}
+
+.chatCaixa {
+	max-width: 700px;
+	min-height: 100px;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid black;
+	display: block;
+	margin: auto;
+	background-color: #1F2022;
+	margin-top: 100px;
+}
+
+.sala {
+	float: left;
+	background: white;
+	width: 200px;
+}
+
+.chat {
+	float: right;
+	background: black;
+	width: 500px;
+}
