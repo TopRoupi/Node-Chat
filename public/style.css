@@ -41,7 +41,7 @@ body {
 	margin-top: 100px;
 }
 
-.sala {
+#sala {
 	float: left;
 	width: 199px;
 	border: 1px solid black;
@@ -50,12 +50,13 @@ body {
 	color: #ffffff;
 }
 
-.sala span {
+#sala span {
 	margin-left: 10px;
 	margin-top: 5px;
+	word-break: break-all;
 }
 
-.chat {
+#chat {
 	background-color: #191a1c;
 	margin-left: 200px;
 	width: 498px;
@@ -67,15 +68,15 @@ body {
 	overflow-y: auto;
 }
 
-.chat::-webkit-scrollbar-track {
+#chat::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 }
-.chat::-webkit-scrollbar {
+#chat::-webkit-scrollbar {
 	width: 10px;
 	background-color: #F5F5F5;
 }
-.chat::-webkit-scrollbar-thumb {
+#chat::-webkit-scrollbar-thumb {
 	background-color: #000000;
 }
 

@@ -4,39 +4,30 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link href="style.css" rel="stylesheet">
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="chat.js"></script>
 	<title>Chat Node</title>
 </head>
-<body>
+
+<body onload="show_prompt()">
   <div class="background-image"></div>
   <div class="chatCaixa">
-    <div class="sala" id="sala">
+
+		<!--Lista de usuários conectados-->
+    <div id="sala">
     </div>
-    <div class="chat" id="chat">
+
+		<!--Lista de mensagens-->
+    <div id="chat">
       <ul id="messages">
 			</ul>
     </div>
+
+		<!--Formulario para enviar mensagem-->
 		<form action="">
 			<input id="m" autocomplete="off" /><button>Enviar</button>
 		</form>
   </div>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-	<script>
-    $(function () {
-      var socket = io();
-      $('form').submit(function(){
-				if ( $("input:first").val() != ""){
-					socket.emit('chat message', $('#m').val());
-	        $('#m').val('');
-				}
-				return false;
-      });
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
-				var objDiv = document.getElementById("chat");
-				objDiv.scrollTop = objDiv.scrollHeight;
-      });
-    });
-  </script>
 </body>
 </html>
