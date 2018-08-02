@@ -9,9 +9,9 @@
 <body>
   <div class="background-image"></div>
   <div class="chatCaixa">
-    <div class="sala">
+    <div class="sala" id="sala">
     </div>
-    <div class="chat">
+    <div class="chat" id="chat">
       <ul id="messages">
 			</ul>
     </div>
@@ -25,12 +25,16 @@
     $(function () {
       var socket = io();
       $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
+				if ( $("input:first").val() != ""){
+					socket.emit('chat message', $('#m').val());
+	        $('#m').val('');
+				}
+				return false;
       });
       socket.on('chat message', function(msg){
         $('#messages').append($('<li>').text(msg));
+				var objDiv = document.getElementById("chat");
+				objDiv.scrollTop = objDiv.scrollHeight;
       });
     });
   </script>
