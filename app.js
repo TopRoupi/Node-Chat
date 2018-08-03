@@ -15,15 +15,21 @@ http.listen(3000, function(){
   console.log('listening on :3000');
 });
 
-var users = [];
+var users = 0;
 
 //Codigo CHAT
 io.on('connection', function(socket){
 
-  //Enviar alert no chat quando alguém entra e sai
-  io.emit('chat message', 'usuário entrou na sala');
-  socket.on('disconnect', function(){
-    io.emit('chat message', 'usuário saiu da sala');
+  //Evento ao um usuário entrar
+  socket.on('new user', function(user){
+    users = users + 1;
+    io.emit('room users', users);
+    io.emit('chat message', user + ' entrou na sala');
+  });
+
+  //Atualizar lista de usuários
+  socket.on('room users', function(userslist){
+    io.emit('room users', userslist);
   });
 
   //Evento ao receber mensagem
@@ -32,15 +38,9 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 
-  //Evento ao um usuário entrar
-  socket.on('new user', function(user){
-    users.push(user);
-    userlist = users.join('<br>');
-    io.emit('room users', userlist);
-  });
-
-  //Atualizar lista de usuários
-  socket.on('room users', function(userlist){
-    io.emit('room users', userlist);
+  //Evento ao desconectar da sala
+  socket.on('disconnect', function(){
+    users = users - 1;
+    io.emit('room users', users);
   });
 });

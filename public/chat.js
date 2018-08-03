@@ -1,11 +1,23 @@
+myuser = '';
 var socket = io();
+
+//Ao entrar na sala
+socket.on('connect', function () {
+  var name = prompt('Insira seu um nome', 'User');
+  if (name != null && name != "") {
+    socket.emit('new user', name);
+  } else {
+    socket.emit('new user', 'User');
+  }
+  myuser = name;
+});
 
 $(function () {
   //Enviar mensagem
   $('form').submit(function(){
     //Checar se o campo está vazio
     if ( $("input:first").val() != ""){
-      socket.emit('chat message', $('#m').val());
+      socket.emit('chat message', myuser + ': ' + $('#m').val());
       $('#m').val('');
     }
     return false;
@@ -24,14 +36,3 @@ socket.on('chat message', function(msg){
 socket.on('room users', function(userlist){
   document.getElementById("sala").innerHTML = userlist;
 });
-
-//Enviar nome do usuário ao entrar
-function show_prompt() {
-  var name = prompt('Insira seu um nome', 'User');
-  if (name != null && name != "") {
-    socket.emit('new user', name);
-  } else {
-    socket.emit('new user', 'User');
-  }
-  return false;
-}
