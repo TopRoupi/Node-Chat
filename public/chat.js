@@ -15,11 +15,8 @@ socket.on('connect', function () {
 $(function () {
   //Enviar mensagem
   $('form').submit(function(){
-    //Checar se o campo está vazio
-    if ( $("input:first").val() != ""){
-      socket.emit('chat message', myuser + ': ' + $('#m').val());
-      $('#m').val('');
-    }
+    socket.emit('chat message', myuser ,$('#m').val());
+    $('#m').val('');
     return false;
   });
 });

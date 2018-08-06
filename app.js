@@ -33,9 +33,16 @@ io.on('connection', function(socket){
   });
 
   //Evento ao receber mensagem
-  socket.on('chat message', function(msg){
-    //Enviar mensagem
-    io.emit('chat message', msg);
+  socket.on('chat message', function(user, msg){
+    //Checa se a mensagem está vazia
+    if (msg.trim() != ""){
+      msg = msg.slice(0, 254)
+      if(user != ""){
+        io.emit('chat message', [user, ":" , msg].join(' '));
+      } else {
+        io.emit('chat message', msg);
+      }
+    }
   });
 
   //Evento ao desconectar da sala
