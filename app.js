@@ -2,7 +2,7 @@ const express = require('express');
 var app = express();
 const path = require('path');
 var http = require('http').Server(app);
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 var io = require('socket.io')(http);
 
 //Iniciar servidor web
@@ -14,21 +14,21 @@ app.get('/', function(req, res){
 
 http.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-var users = 0;
+var userlist = [];
 
 //Codigo CHAT
 io.on('connection', function(socket){
-
   //Evento ao um usuário entrar
   socket.on('new user', function(user){
-    users = users + 1;
-    io.emit('room users', users);
     io.emit('chat message', user + ' entrou na sala');
+    socket.username = user;
+    userlist.push(user);
+    io.emit('room users', userlist);
   });
 
   //Atualizar lista de usuários
-  socket.on('room users', function(userslist){
-    io.emit('room users', userslist);
+  socket.on('room users', function(userlist){
+    io.emit('room users', userlist);
   });
 
   //Evento ao receber mensagem
@@ -46,7 +46,10 @@ io.on('connection', function(socket){
 
   //Evento ao desconectar da sala
   socket.on('disconnect', function(){
-    users = users - 1;
+    io.emit('chat message', socket.username + ' saiu da sala');
+    var pos = userlist.indexOf(socket.username);
+    userlist.splice(pos, 1);
+    console.log(userlist);
     io.emit('room users', users);
   });
 });
