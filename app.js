@@ -49,7 +49,7 @@ io.on('connection', function(socket){
     io.emit('chat message', socket.username + ' saiu da sala');
     var pos = userlist.indexOf(socket.username);
     userlist.splice(pos, 1);
-    console.log(userlist);
-    io.emit('room users', users);
+    usrlist = userlist.join('<br>')
+    io.emit('room users', usrlist);
   });
 });
